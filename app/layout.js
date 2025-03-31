@@ -1,7 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Provider } from "./providers";
-import Sidebar from "@/partials/sidebar/Sidebar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +16,7 @@ export default function RootLayout({ children }) {
         className={`${inter.variable} antialiased`}
       >
         <Provider>
-          <Sidebar />
+
           {children}
 
           <div className="bg-[#281b41] w-80 rotate-180 h-96 fixed top-0 left-14 -z-10 rounded-4xl blur-[100px]"></div>

@@ -14,7 +14,5 @@ export default function AuthLayout({ children }) {
     }
   }, [status]);
 
-  return status === "loading" ? <Loader /> : <div>
-    {children}
-  </div>;
+  return (status === "loading" || status === "authenticated") ? <Loader /> : children;
 }

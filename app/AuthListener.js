@@ -17,6 +17,10 @@ const AuthListener = () => {
       // Remove `success=true` from the URL after showing the toast
       router.replace("/", undefined, { shallow: true });
     }
+
+    if (status === "unauthenticated") {
+      router.push("/login", { shallow: false });
+    }
   }, [status, session, searchParams, router]);
 
   return null; // No UI component needed

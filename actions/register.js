@@ -42,8 +42,6 @@ export const register = async (values, type = "password") => {
       authtype: type || "password"
     });
 
-    console.log(newUser, "h")
-
     await newUser.save();
 
     return { success: "User registered successfully!" };

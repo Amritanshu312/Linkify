@@ -18,12 +18,9 @@ const AuthListener = () => {
       router.replace("/", undefined, { shallow: true });
     }
 
-    if (status === "unauthenticated") {
-      router.push("/login", { shallow: false });
-    }
   }, [status, session, searchParams, router]);
 
-  return null; // No UI component needed
+  return null;
 };
 
 export default AuthListener;

@@ -6,7 +6,7 @@ import User from "@/models/User";
 import GoogleProvider from "next-auth/providers/google";
 import { register } from "@/actions/register";
 
-const handler = NextAuth({
+export const authOptions = {
   providers: [
     credentials({
       name: "Credentials",
@@ -46,7 +46,7 @@ const handler = NextAuth({
           const userExists = await User.findOne({ email });
 
           if (!userExists) {
-            const res = await register({ name, image, email }, "google");
+            const res = await register({ name, image, email }, account.provider);
 
             if (res?.error) return false;
           }
@@ -60,11 +60,27 @@ const handler = NextAuth({
 
       return user;
     },
+
+    async jwt({ token, user }) {
+      if (user) {
+        token.name
+        token.email
+
+      }
+
+      return token;
+    },
+    async session({ session, token }) {
+      session.user.profile = token.profile;
+      return session;
+    },
   },
 
   session: {
     strategy: "jwt",
   },
   secret: process.env.NEXTAUTH_SECRET,
-});
+}
+
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

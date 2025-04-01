@@ -8,11 +8,11 @@ export default function AuthLayout({ children }) {
   const { status } = useSession();
   const router = useRouter();
 
-  useEffect(() => {
-    if (status === "authenticated") {
-      router.push("/", { shallow: false });
-    }
-  }, [status]);
+  // useEffect(() => {
+  //   if (status === "authenticated") {
+  //     router.push("/", { shallow: false });
+  //   }
+  // }, [status]);
 
   return (status === "loading" || status === "authenticated") ? <Loader /> : children;
 }

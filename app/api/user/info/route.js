@@ -21,7 +21,6 @@ export const GET = async (req) => {
           encryptedData[key] = value
         }
       }
-      console.log(encryptedData)
     }
   }
 

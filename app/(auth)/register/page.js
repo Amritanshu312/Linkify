@@ -13,8 +13,8 @@ const Register = () => {
         </div>
 
         <div className="flex flex-col gap-4 items-center">
-          <div className="font-['poppins'] text-lg text-center">"Create an account with your email!"</div>
-          <p className="text-[#6f74a6] font-['poppins'] text-center">"Easily create, analyze, and share links. Boost your performance and make an impact with trackable data."</p>
+          <div className="font-['poppins'] text-lg text-center">&quot;Create an account with your email!&quot;</div>
+          <p className="text-[#6f74a6] font-['poppins'] text-center">&quot;Easily create, analyze, and share links. Boost your performance and make an impact with trackable data.&quot;</p>
         </div>
 
         <SignInWithGoogle />

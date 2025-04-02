@@ -2,7 +2,6 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { useSession as useNextAuthSession } from "next-auth/react";
-import { decrypt } from "@/lib/crypto";
 import { toast } from "sonner";
 
 const AuthContext = createContext(null);
@@ -11,52 +10,42 @@ export function AuthProvider({ children }) {
   const { data: session, status } = useNextAuthSession();
   const [userInfo, setUserInfo] = useState({})
   const [fetchLoading, setFetchLoading] = useState(true)
-
-
+  console.log(userInfo)
   useEffect(() => {
     if (status !== "authenticated") return;
 
+    const controller = new AbortController();
+    const signal = controller.signal;
+    let isMounted = true;
+
     const fetchUserInfo = async () => {
-      setFetchLoading(true)
+      setFetchLoading(true);
       try {
-        const res = await fetch("/api/user/info", {
-          headers: { 'Cache-Control': 'no-cache' },
-          signal: controller.signal
-        });
+        const res = await fetch("/api/user/info", { signal });
 
         if (!res.ok) {
-          toast.error(`User Fetch Failed with status ${res.status}`)
+          toast.error(`User Fetch Failed with status ${res.status}`);
           throw new Error(`API request failed with status ${res.status}`);
         }
+
         const data = await res.json();
+        if (!data || typeof data !== "object") return;
 
-        if (!data) return {};
-
-        const sensitiveKeys = new Set(["_id", "createdAt", "updatedAt"]);
-
-        const entries = Object.entries(data);
-        const decryptedEntries = await Promise.all(
-          entries.map(async ([key, value]) => {
-            const shouldDecrypt = typeof value === "string" && !sensitiveKeys.has(key);
-            const processedValue = shouldDecrypt ? decrypt(value) : value;
-            return [key, processedValue];
-          })
-        );
-        const decryptedData = Object.fromEntries(decryptedEntries);
-        setUserInfo(decryptedData);
-        setFetchLoading(false)
-        return decryptedData;
+        setUserInfo(data)
       } catch (error) {
-        if (error.name !== 'AbortError') {
+        if (error.name !== "AbortError") {
           console.error("Error fetching user info:", error);
+          toast.error("Failed to load user info.");
         }
-        setFetchLoading(false)
-        return null;
+      } finally {
+        if (isMounted) setFetchLoading(false);
       }
     };
-    const controller = new AbortController();
+
     fetchUserInfo();
+
     return () => {
+      isMounted = false;
       controller.abort();
     };
   }, [status]);

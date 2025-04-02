@@ -12,7 +12,7 @@ export default function AuthLayout({ children }) {
     if (status === "authenticated") {
       router.push("/", { shallow: false });
     }
-  }, [status]);
+  }, [status, router]);
 
   return (status === "loading" || status === "authenticated") ? <Loader /> : children;
 }

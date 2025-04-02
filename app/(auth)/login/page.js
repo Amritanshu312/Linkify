@@ -13,8 +13,8 @@ const Login = () => {
         </div>
 
         <div className="flex flex-col gap-4 items-center">
-          <div className="font-['poppins'] text-lg">"Login in with your email!"</div>
-          <p className="text-[#6f74a6] font-['poppins'] text-center">"Easily create, analyze, and share links. Boost your performance and make an impact with trackable data."</p>
+          <div className="font-['poppins'] text-lg">&quot;Login in with your email!&quot;</div>
+          <p className="text-[#6f74a6] font-['poppins'] text-center">&quot;Easily create, analyze, and share links. Boost your performance and make an impact with trackable data.&quot;</p>
         </div>
 
 
@@ -28,7 +28,7 @@ const Login = () => {
 
         <LoginForm />
 
-        <div className="font-['poppins'] text-[#f1f1f1ee] text-center">Don't Have an account? <Link href={"/register"} className="text-[#6c73c4]">Sign Up</Link></div>
+        <div className="font-['poppins'] text-[#f1f1f1ee] text-center">Don&apos;t Have an account? <Link href={"/register"} className="text-[#6c73c4]">Sign Up</Link></div>
       </div>
     </div>
   )

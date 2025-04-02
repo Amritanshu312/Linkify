@@ -13,7 +13,7 @@ export default function MainLayout({ children }) {
       router.push("/login", { shallow: false });
     }
 
-  }, [status, session]);
+  }, [status, session, router]);
 
   return <>
     <Sidebar />

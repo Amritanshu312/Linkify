@@ -32,6 +32,9 @@ export function AuthProvider({ children }) {
         if (!data || typeof data !== "object") return;
 
         setUserInfo(data)
+
+
+
       } catch (error) {
         if (error.name !== "AbortError") {
           console.error("Error fetching user info:", error);

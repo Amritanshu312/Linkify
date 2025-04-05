@@ -3,7 +3,8 @@ import CreateNewLinks from "@/pages/home/no-links/CreateNewLinks";
 import LinksItems from "@/pages/home/no-links/LinksItems";
 
 
-export default function Home() {
+export default async function Home() {
+
   return (
     <div className="min-h-screen flex flex-col">
       <PagesInfoHeader />

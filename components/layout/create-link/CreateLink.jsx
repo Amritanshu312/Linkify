@@ -1,10 +1,10 @@
 "use client"
 
 import { useLink } from "@/context/linkProvider"
-import Input from "@/components/ui/Input";
 import { FaArrowRightToBracket } from "react-icons/fa6";
 import Item from "./Item";
 import Select from "./Select";
+import QRcode from "./QRcode";
 
 const CreateLink = () => {
   const { isCreateLinkPopup, setIsCreateLinkPopup } = useLink()
@@ -24,11 +24,16 @@ const CreateLink = () => {
 
           <div className="mt-8 flex flex-col gap-2">
             <div className="text-[#d2d7df] font-medium text-[15px]">Expiration</div>
-
             <Select />
           </div>
 
-          
+          <div className="mt-8 flex flex-col gap-2">
+            <div className="text-[#d2d7df] font-medium text-[15px]">QR Code</div>
+
+            <QRcode />
+          </div>
+
+
 
 
         </div>

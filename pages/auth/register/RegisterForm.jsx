@@ -1,6 +1,6 @@
 "use client"
 import { HiOutlineMail } from "react-icons/hi";
-import Input from "./Input";
+import Input from "../../../components/ui/Input";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { register } from "@/actions/register";

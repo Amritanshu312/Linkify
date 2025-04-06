@@ -1,7 +1,10 @@
 "use client"
 
 import { useLink } from "@/context/linkProvider"
+import Input from "@/components/ui/Input";
 import { FaArrowRightToBracket } from "react-icons/fa6";
+import Item from "./Item";
+import Select from "./Select";
 
 const CreateLink = () => {
   const { isCreateLinkPopup, setIsCreateLinkPopup } = useLink()
@@ -12,9 +15,26 @@ const CreateLink = () => {
         <div className="w-full h-14 flex items-center px-8 border-b-2 border-[#181f3eeb] text-[#ffffff87] cursor-pointer" onClick={() => setIsCreateLinkPopup(false)}>
           <FaArrowRightToBracket size={20} />
         </div>
+
+        <div className="w-full h-full px-6 pt-6">
+          <div className="flex gap-2 items-center text-lg font-medium">Create New Link</div>
+
+          <Item destination />
+          <Item shorten_key />
+
+          <div className="mt-8 flex flex-col gap-2">
+            <div className="text-[#d2d7df] font-medium text-[15px]">Expiration</div>
+
+            <Select />
+          </div>
+
+          
+
+
+        </div>
       </div>
 
-      <div className="w-full h-full bg-[#00000043] fixed top-0 left-0 " onClick={() => setIsCreateLinkPopup(false)}></div>
+      {/* <div className="w-full h-full bg-[#00000043] fixed top-0 left-0 " onClick={() => setIsCreateLinkPopup(false)}></div> */}
     </>
   )
     :

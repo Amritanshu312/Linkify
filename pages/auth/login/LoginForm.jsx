@@ -2,7 +2,7 @@
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import Input from "../register/Input";
+import Input from "../../../components/ui/Input";
 import { HiOutlineMail } from "react-icons/hi";
 import { toast } from 'sonner'
 

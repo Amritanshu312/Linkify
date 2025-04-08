@@ -4,16 +4,9 @@ import { PiClockCountdownBold } from "react-icons/pi"
 import { FaChevronDown } from "react-icons/fa"
 import { motion, AnimatePresence } from "framer-motion"
 import { useState } from "react"
+import { options } from "@/utils/Date_Time"
 
-const options = [
-  "Never",
-  "1 Hours",
-  "6 Hours",
-  "2 week",
-  "1 Month",
-  "6 Month",
-  "1 year",
-]
+
 
 const containerVariants = {
   hidden: {
@@ -48,9 +41,11 @@ const itemVariants = {
   visible: { opacity: 1, y: 0 },
 }
 
-const Select = () => {
+const Select = ({
+  selected,
+  setSelected
+}) => {
   const [isActive, setIsActive] = useState(false)
-  const [selected, setSelected] = useState("Never")
 
   const handleSelect = (value) => {
     setSelected(value)

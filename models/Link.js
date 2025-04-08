@@ -28,6 +28,7 @@ const LinkSchema = new Schema({
     required: [true, 'Short URL ID is required.'],
     unique: true,
     match: [/^[a-zA-Z0-9_-]+$/, 'Short URL must be alphanumeric.'],
+    maxLength: 20
   },
   expiration: {
     type: Date,

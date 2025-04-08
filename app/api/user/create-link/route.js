@@ -3,7 +3,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { connectDB } from "@/lib/mongodb";
 import User from "@/models/User";
 import Link from "@/models/Link";
-import { generateShortCode, isValidShortCode } from "@/lib/crypto";
+import { decrypt, generateShortCode, isValidShortCode } from "@/lib/crypto";
 import sanitize from "mongo-sanitize";
 import validator from "validator";
 
@@ -34,7 +34,7 @@ export const POST = async (req) => {
 
     const body = await req.json();
     const url = sanitize(body.url || "").trim();
-    const custom_code = sanitize(body.custom_code || "").trim();
+    const custom_code = sanitize(decrypt(body.custom_code) || "").trim();
     const neverExpires = body.neverExpires ?? true;
     const expiration = body.expiration ? new Date(body.expiration) : null;
 

@@ -7,7 +7,8 @@ const Input = ({
   type,
   targetValue,
   setTargetValue,
-  siderounded
+  siderounded,
+  disabled
 }) => {
   return (
     <div className="flex flex-col gap-2 w-full">
@@ -16,7 +17,7 @@ const Input = ({
         { "rounded-none border-l-0 rounded-tr-md rounded-br-md": siderounded }
       )}>
         <span className="text-[#ffffffb7] group-focus-within:text-[#fffffff1]">{icon}</span>
-        <input type={type} value={targetValue} onChange={e => setTargetValue(e.target.value)} placeholder={placeholder} className="outline-none border-none w-full py-1" autoComplete="on" />
+        <input type={type} value={targetValue} onChange={e => setTargetValue(e.target.value)} placeholder={placeholder} className="outline-none border-none w-full py-1" autoComplete="on" disabled={!!(disabled)} />
       </div>
     </div>
   )

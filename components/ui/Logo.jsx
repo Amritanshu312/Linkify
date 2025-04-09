@@ -1,7 +1,7 @@
 import Image from "next/image"
 
 const Logo = ({
-  w, h
+  w, h, notshowTitle
 }) => {
   return (
     <div className="flex items-center gap-2 font-['poppins'] py-2">
@@ -9,7 +9,7 @@ const Logo = ({
         <Image src={"/images/logo.svg"} width={w || 30} height={h || 30} alt="logo" />
       </div>
 
-      <div className="font-medium ">Linkify</div>
+      {!notshowTitle && <div className="font-medium ">Linkify</div>}
     </div>
   )
 }

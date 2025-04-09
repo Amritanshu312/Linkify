@@ -18,7 +18,7 @@ export default function MainLayout({ children }) {
   return <>
     <Sidebar />
 
-    <div className="ml-[23rem]">
+    <div className="ml-[23rem] max-[1400px]:ml-20">
       {children}
     </div>
   </>;

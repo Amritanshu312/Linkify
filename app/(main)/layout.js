@@ -1,4 +1,5 @@
 "use client"
+import Loader from "@/components/Loader";
 import Sidebar from "@/partials/sidebar/Sidebar";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -15,7 +16,7 @@ export default function MainLayout({ children }) {
 
   }, [status, session, router]);
 
-  return <>
+  return (status === "loading" || status === "unauthenticated") ? <Loader /> : <>
     <Sidebar />
 
     <div className="ml-[23rem] max-[1400px]:ml-20">

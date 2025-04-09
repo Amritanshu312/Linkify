@@ -43,7 +43,7 @@ const CreateLink = () => {
 
     await toast.promise(
       (async () => {
-        const response = await fetch("/api/user/create-link", {
+        const response = await fetch("/api/user/links/create", {
           method: "POST",
           body: JSON.stringify({
             url: originalUrl,

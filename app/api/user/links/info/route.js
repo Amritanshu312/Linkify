@@ -15,10 +15,21 @@ const secureHeaders = {
   "Content-Security-Policy": "default-src 'none'; frame-ancestors 'none'; base-uri 'none';",
 };
 
-export const GET = async (request) => {
+export const POST = async (request) => {
   try {
+    const body = await request.json();
     const { searchParams } = new URL(request.url);
+
     const rawShortUrl = searchParams.get("_url_");
+
+    const showValue = body.show || []
+    let selectValues = ""
+
+    showValue.forEach(items => {
+      selectValues += items
+    });
+
+
 
     // Validate input presence
     if (!rawShortUrl) {
@@ -49,7 +60,7 @@ export const GET = async (request) => {
 
     // Find and select safe fields only
     const link = await Link.findOne({ short_url: shorter_url })
-      .select("url short_url clicks expiration neverExpires createdAt")
+      .select(selectValues || "url short_url clicks expiration neverExpires createdAt")
       .lean();
 
     if (!link) {

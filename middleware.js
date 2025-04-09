@@ -4,10 +4,14 @@ import { getToken } from "next-auth/jwt";
 const RATE_LIMIT = new Map();
 const BLOCKLIST = new Set();
 const MAX_ATTEMPTS = 70;
-const TIME_WINDOW = 10 * 60 * 1000; // 10 minutes
+const TIME_WINDOW = 10 * 60 * 1000;
+const excludingPaths = [
+  '/api/user/links/info'
+]
 
 export async function middleware(req) {
   const clientIp = req.headers.get("x-forwarded-for") || req.ip;
+  const url = req.nextUrl.pathname
 
   // Blocklisted IP check
   if (BLOCKLIST.has(clientIp)) {
@@ -27,6 +31,11 @@ export async function middleware(req) {
     RATE_LIMIT.set(clientIp, { attempts: 1, firstAttemptTime: currentTime });
   }
 
+  if (excludingPaths.includes(url)) {
+    return NextResponse.next()
+  }
+
+
   // Get NextAuth token from cookies
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
@@ -38,5 +47,7 @@ export async function middleware(req) {
 }
 
 export const config = {
-  matcher: ["/api/user/:path*"],
+  matcher: [
+    "/api/user/:path*"
+  ],
 };

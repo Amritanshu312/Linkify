@@ -124,7 +124,7 @@ const CreateLink = () => {
     {isCreateLinkPopup && (
       <>
         <motion.div
-          className="max-w-[46rem] w-full fixed right-0 top-0 overflow-hidden h-screen bg-[#03091d] z-50 border-l-2 border-[#ffffff21] rounded-tl-2xl rounded-bl-2xl shadow-[0_0_30px_#00000066]"
+          className="max-w-[46rem] w-full fixed right-0 top-0 h-screen bg-[#03091d] z-50 border-l-2 border-[#ffffff21] rounded-tl-2xl rounded-bl-2xl shadow-[0_0_30px_#00000066] overflow-y-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
           variants={popupVariants}
           initial="hidden"
           animate="visible"
@@ -152,7 +152,7 @@ const CreateLink = () => {
               </div>
             </div>
 
-            <div className="w-full flex justify-end px-6 pb-6">
+            <div className="w-full flex justify-end px-6 pb-6 pt-2.5">
               <motion.div
                 className="bg-[linear-gradient(45deg,#201c42,#0c163f,#0f1938,#1e184b)] border border-[#1d2753] cursor-pointer rounded-md py-1.5 px-3 flex gap-3 items-center w-max"
                 whileHover={{ scale: 1.05 }}

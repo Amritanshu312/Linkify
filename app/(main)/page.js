@@ -11,7 +11,7 @@ export default async function Home() {
 
       <div className="w-full px-3.5 py-3">
 
-        <div className="px-12 py-6 flex flex-col gap-8 items-center">
+        <div className="min-[586px]:px-12 min-[586px]:py-6 flex flex-col gap-8 items-center">
           <LinksItems />
           <CreateNewLinks />
         </div>

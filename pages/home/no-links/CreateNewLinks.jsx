@@ -11,8 +11,8 @@ const CreateNewLinks = () => {
   return (
     <div className="max-w-[26rem] flex flex-col items-center gap-6 mt-4">
       <div className="flex flex-col items-center justify-center gap-3">
-        <div className="flex gap-2 items-center text-xl mr-[2px]">Create New <Logo /> Link</div>
-        <p className="text-[#6f74a6] text-center">Start shortening your links and track their performance seamlessly. Create a new link now to simplify sharing and gain valuable insights!</p>
+        <div className="flex gap-2 items-center text-xl mr-[2px] max-[495px]:text-lg">Create New <Logo /> Link</div>
+        <p className="text-[#6f74a6] text-center max-[495px]:text-sm">Start shortening your links and track their performance seamlessly. Create a new link now to simplify sharing and gain valuable insights!</p>
       </div>
 
       <div

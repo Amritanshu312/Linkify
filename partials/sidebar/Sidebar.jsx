@@ -50,7 +50,7 @@ const Sidebar = () => {
       exit="exit"
       className={cn(
         "h-screen bg-[#03091d81] max-[1400px]:bg-[#03091d00] backdrop-blur-[86px] fixed top-0 left-0 border-r-2 border-[#181f3eeb] pt-2 !pb-0 z-50 overflow-hidden flex flex-col",
-        width < 1400 && !isToggled ? "w-20" : "w-[23rem]"
+        width < 1400 && !isToggled ? "w-20" : "max-w-[23rem] w-full overflow-y-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
       )}
     >
       <motion.div

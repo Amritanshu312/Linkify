@@ -3,8 +3,8 @@ import { getToken } from "next-auth/jwt";
 
 const RATE_LIMIT = new Map();
 const BLOCKLIST = new Set();
-const MAX_ATTEMPTS = 70;
-const TIME_WINDOW = 10 * 60 * 1000;
+const MAX_ATTEMPTS = 10;
+const TIME_WINDOW = 1000;
 const excludingPaths = [
   '/api/user/links/info'
 ]

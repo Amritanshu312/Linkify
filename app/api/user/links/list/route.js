@@ -29,8 +29,8 @@ export const GET = async (req) => {
 
     const { searchParams } = new URL(req.url);
     const sort_ = searchParams.get("sort");
-    const page = searchParams.get("page") || 1;
-    const perPage = searchParams.get("perpage") || 2;
+    const page = parseInt(searchParams.get("page")) || 1;
+    const perPage = parseInt(searchParams.get("perpage")) || 2;
 
     await connectDB();
 
@@ -45,10 +45,22 @@ export const GET = async (req) => {
       );
     }
 
+    const totalLinks = await Link.countDocuments({ creator: user._id });
+    const totalPages = Math.ceil(totalLinks / perPage);
+    const hasNextPage = page < totalPages;
+
     const links = await Link.find({ creator: user._id })
       .select("short_url url expiration neverExpires clicks createdAt updatedAt")
-      .sort(...[sort_ === "created" ? { createdAt: -1 } : sort_ === "clicks" ? { clicks: -1 } : {}])
-      .skip(parseInt(perPage) * (parseInt(page) - 1))
+      .sort(
+        ...[
+          sort_ === "created"
+            ? { createdAt: -1 }
+            : sort_ === "clicks"
+              ? { clicks: -1 }
+              : {},
+        ]
+      )
+      .skip(perPage * (page - 1))
       .limit(perPage)
       .lean();
 
@@ -57,6 +69,11 @@ export const GET = async (req) => {
         success: true,
         message: "Links fetched successfully",
         data: links,
+        currentPage: page,
+        perPage,
+        totalLinks,
+        totalPages,
+        hasNextPage,
       }),
       { status: 200, headers: secureHeaders }
     );

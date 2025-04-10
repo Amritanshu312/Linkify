@@ -9,22 +9,22 @@ import Pagination from "@/components/ui/Pagination";
 
 const Home = () => {
   const { session, status } = useAuth()
-  const { links, setPage } = useLink()
+  const { links, setPage, page } = useLink()
 
 
-  return ((session && status === "authenticated") && links.length === 0) ?
+  return ((session && status === "authenticated") && links.data.length === 0) ?
 
     <div className="min-[586px]:px-12 min-[586px]:py-6 flex flex-col gap-8 items-center">
       <LinksItems />
       <CreateNewLinks />
     </div> :
     <div className="min-[586px]:px-12 min-[586px]:py-6 flex flex-col gap-4">
-      {links.map(item => <Fragment key={item._id}>
+      {links.data.map(item => <Fragment key={item._id}>
         <LinkCard data={item} />
       </Fragment>)}
 
       <div>
-        <Pagination setPage={setPage} />
+        <Pagination setPage={setPage} currentPage={page} />
       </div>
     </div>
 

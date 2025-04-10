@@ -10,7 +10,7 @@ export function LinkProvider({ children }) {
   const { status } = useAuth()
   const [isCreateLinkPopup, setIsCreateLinkPopup] = useState(false)
   const [linkLoading, setLinkLoading] = useState(true)
-  const [links, setLinks] = useState([])
+  const [links, setLinks] = useState({ data: [] })
   const [page, setPage] = useState(1)
 
 
@@ -25,7 +25,7 @@ export function LinkProvider({ children }) {
     const fetchLists = async () => {
       setLinkLoading(true);
       try {
-        const res = await fetch(`/api/user/links/list?page=${page}&perpage=10`, { signal });
+        const res = await fetch(`/api/user/links/list?page=${page}&perpage=2`, { signal });
 
         if (!res.ok) {
           toast.error(`Links Fetch Failed with status ${res.status}`);
@@ -35,7 +35,7 @@ export function LinkProvider({ children }) {
         const data = await res.json();
         if (!data || typeof data !== "object") return;
 
-        setLinks(data?.data)
+        setLinks(data)
 
       } catch (error) {
         if (error.name !== "AbortError") {

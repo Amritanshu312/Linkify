@@ -6,10 +6,22 @@ import { FaPersonRunning } from "react-icons/fa6";
 import { PiCursorClick } from "react-icons/pi";
 import Link from "next/link";
 import { formatDate } from "@/utils/Date_Time";
+import { copyToClipboard } from "@/utils/Clipboard";
+import { toast } from "sonner";
 
 const LinkCard = ({
   data
 }) => {
+
+  const HandleCopy = async () => {
+    const res = await copyToClipboard(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/${data?.short_url}`)
+
+    if (res.success) {
+      return toast.success("URL successfully copied to clipboard!");
+    }
+    return toast.error("Failed to copy the URL. Please try again.");
+  }
+
   return (
     <div className="w-full h-full max-h-40 bg-[linear-gradient(#131a33d4,#0c1227d4,#0c132cd4,#0e152ed4)] border-2 border-[#19203c] flex flex-col p-2 px-4 rounded-[6px] gap-2">
       <div className="w-full justify-between flex items-center h-full border-2 border-[#161d3b75] p-2 rounded-lg">
@@ -22,7 +34,10 @@ const LinkCard = ({
             <div className="flex gap-3 items-center">
               <Link href={`${process.env.NEXT_PUBLIC_WEBSITE_URL}/${data?.short_url}`} target="_" className="font-medium">{process.env.NEXT_PUBLIC_WEBSITE_URL.replace("http://", "").replace("https://", "")}/{data?.short_url}</Link>
               <Link href={`${process.env.NEXT_PUBLIC_WEBSITE_URL}/${data?.short_url}`} target="_" className="cursor-pointer text-[#aeb0b9] hover:text-white"><FiExternalLink size={18} /></Link>
-              <div className="cursor-pointer text-[#aeb0b9] hover:text-white"><MdOutlineContentCopy /></div>
+              <div
+                className="cursor-pointer text-[#aeb0b9] hover:text-white"
+                onClick={HandleCopy}
+              ><MdOutlineContentCopy /></div>
             </div>
 
             <div className="flex items-center gap-2">

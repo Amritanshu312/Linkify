@@ -53,7 +53,7 @@ export function LinkProvider({ children }) {
       isMounted = false;
       controller.abort();
     };
-  }, [status]);
+  }, [status, page]);
 
   return (
     <LinkContext.Provider value={{

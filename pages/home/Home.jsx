@@ -5,11 +5,12 @@ import CreateNewLinks from "@/pages/home/no-links/CreateNewLinks";
 import LinksItems from "@/pages/home/no-links/LinksItems";
 import LinkCard from "./LinkCard";
 import { Fragment } from "react";
+import Pagination from "@/components/ui/Pagination";
 
 const Home = () => {
   const { session, status } = useAuth()
-  const { links } = useLink()
-  console.log(links.length)
+  const { links, setPage } = useLink()
+
 
   return ((session && status === "authenticated") && links.length === 0) ?
 
@@ -21,6 +22,10 @@ const Home = () => {
       {links.map(item => <Fragment key={item._id}>
         <LinkCard data={item} />
       </Fragment>)}
+
+      <div>
+        <Pagination setPage={setPage} />
+      </div>
     </div>
 
 }

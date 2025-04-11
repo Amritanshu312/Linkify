@@ -7,25 +7,36 @@ import { useAuth } from "./authProvider";
 const LinkContext = createContext(null);
 
 export function LinkProvider({ children }) {
-  const { status } = useAuth()
-  const [isCreateLinkPopup, setIsCreateLinkPopup] = useState(false)
-  const [linkLoading, setLinkLoading] = useState(true)
-  const [links, setLinks] = useState({ data: [] })
-  const [page, setPage] = useState(1)
+  const { status } = useAuth();
 
+  const [isCreateLinkPopup, setIsCreateLinkPopup] = useState(false);
+  const [linkLoading, setLinkLoading] = useState(true);
+
+  const [links, setLinksState] = useState(() => typeof window === "undefined" ?
+    { data: [] } :
+    JSON.parse(localStorage.getItem("links") || "null") || { data: [] });
+
+
+  const [page, setPage] = useState(links?.currentPage || 1);
+
+
+  // Wrapper to persist `links` to localStorage on set
+  const setLinks = (data) => {
+    setLinksState(data);
+    localStorage.setItem("links", JSON.stringify(data));
+  };
 
   useEffect(() => {
-
     if (status !== "authenticated") return;
 
     const controller = new AbortController();
     const signal = controller.signal;
     let isMounted = true;
 
-    const fetchLists = async () => {
+    const fetchLinks = async () => {
       setLinkLoading(true);
       try {
-        const res = await fetch(`/api/user/links/list?page=${page}&perpage=2`, { signal });
+        const res = await fetch(`/api/user/links/list?page=${page}&perpage=6`, { signal });
 
         if (!res.ok) {
           toast.error(`Links Fetch Failed with status ${res.status}`);
@@ -35,7 +46,14 @@ export function LinkProvider({ children }) {
         const data = await res.json();
         if (!data || typeof data !== "object") return;
 
-        setLinks(data)
+        if (data.data.length === 0 && page > 1 && data.currentPage > 1) {
+          setPage(1)
+        }
+
+        if (isMounted) {
+          setLinks(data);
+          console.log("Links synced from server:", data);
+        }
 
       } catch (error) {
         if (error.name !== "AbortError") {
@@ -45,9 +63,9 @@ export function LinkProvider({ children }) {
       } finally {
         if (isMounted) setLinkLoading(false);
       }
-    }
-    fetchLists()
+    };
 
+    fetchLinks();
 
     return () => {
       isMounted = false;
@@ -56,15 +74,17 @@ export function LinkProvider({ children }) {
   }, [status, page]);
 
   return (
-    <LinkContext.Provider value={{
-      isCreateLinkPopup,
-      setIsCreateLinkPopup,
-      links,
-      setLinks,
-      linkLoading,
-      setPage,
-      page
-    }}>
+    <LinkContext.Provider
+      value={{
+        isCreateLinkPopup,
+        setIsCreateLinkPopup,
+        links,
+        setLinks,
+        linkLoading,
+        setPage,
+        page,
+      }}
+    >
       {children}
     </LinkContext.Provider>
   );

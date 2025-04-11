@@ -6,6 +6,16 @@ import LinksItems from "@/pages/home/no-links/LinksItems";
 import LinkCard from "./LinkCard";
 import { Fragment } from "react";
 import Pagination from "@/components/ui/Pagination";
+import { motion } from "framer-motion";
+
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.08,
+    },
+  },
+};
 
 const Home = () => {
   const { session, status } = useAuth()
@@ -18,14 +28,17 @@ const Home = () => {
       <LinksItems />
       <CreateNewLinks />
     </div> :
+
     <div className="min-[586px]:px-12 min-[586px]:py-6 flex flex-col gap-4">
+
       {links.data.map(item => <Fragment key={item._id}>
         <LinkCard data={item} />
       </Fragment>)}
 
-      <div>
-        <Pagination setPage={setPage} currentPage={page} />
+      <div className="mt-4">
+        <Pagination setPage={setPage} currentPage={page} totalPages={links?.totalPages} />
       </div>
+
     </div>
 
 }

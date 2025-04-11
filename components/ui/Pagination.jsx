@@ -2,18 +2,21 @@ import ReactPaginate from "react-paginate"
 
 const Pagination = ({
   setPage,
-  currentPage
+  currentPage,
+  totalPages
 }) => {
-  return (
-    <div>
-      <div>page {currentPage}</div>
+  return totalPages === 1 ? null : (
+    <div className="h-full w-full flex items-center justify-between ">
+      <div className="w-[90px] text-[15px] text-[#ffffffb4]">Page {currentPage} of {totalPages}</div>
+
       <div className="w-full flex justify-center">
         <ReactPaginate
           breakLabel="..."
           nextLabel="next >"
+          forcePage={currentPage - 1}
           onPageChange={({ selected }) => setPage(selected + 1)}
           pageRangeDisplayed={5}
-          pageCount={4}
+          pageCount={totalPages}
           className="flex justify-center items-center w-max bg-[linear-gradient(#131a33d4,#0c1227d4,#0c132cd4,#0e152ed4)] border border-[#1d27535c] rounded-lg"
           pageClassName=" w-12 h-full"
           pageLinkClassName="w-full h-full flex items-center justify-center cursor-pointer hover:bg-[linear-gradient(45deg,#201c42,#0c163f,#0f1938,#1e184b)] "
@@ -26,6 +29,8 @@ const Pagination = ({
           renderOnZeroPageCount={null}
         />
       </div>
+
+      <div></div>
     </div>
 
   )

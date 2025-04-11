@@ -8,6 +8,13 @@ import Link from "next/link";
 import { formatDate } from "@/utils/Date_Time";
 import { copyToClipboard } from "@/utils/Clipboard";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 15 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+};
+
 
 const LinkCard = ({
   data
@@ -23,7 +30,13 @@ const LinkCard = ({
   }
 
   return (
-    <div className="w-full h-full max-h-40 bg-[linear-gradient(#131a33d4,#0c1227d4,#0c132cd4,#0e152ed4)] border-2 border-[#19203c] flex flex-col p-2 px-4 rounded-[6px] gap-2">
+    <motion.div
+      className="w-full h-full max-h-40 bg-[linear-gradient(#131a33d4,#0c1227d4,#0c132cd4,#0e152ed4)] border-2 border-[#19203c] flex flex-col p-2 px-4 rounded-[6px] gap-2"
+      variants={itemVariants}
+      initial="hidden"
+      animate="show"
+      exit="hidden"
+    >
       <div className="w-full justify-between flex items-center h-full border-2 border-[#161d3b75] p-2 rounded-lg">
         <div className="flex gap-3.5">
           <div className="min-w-12 h-12 rounded-full border border-[#242a50] p-2.5">
@@ -69,7 +82,7 @@ const LinkCard = ({
 
         <div className="text-[#969ac2ec] text-sm">{formatDate(data?.updatedAt)}</div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

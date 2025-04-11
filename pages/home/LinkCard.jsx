@@ -11,8 +11,8 @@ import { toast } from "sonner";
 import { motion } from "framer-motion";
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 15 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+  hidden: { opacity: 0, y: 20, scale: 0.98 },
+  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.3 } },
 };
 
 
@@ -31,7 +31,7 @@ const LinkCard = ({
 
   return (
     <motion.div
-      className="w-full h-full max-h-40 bg-[linear-gradient(#131a33d4,#0c1227d4,#0c132cd4,#0e152ed4)] border-2 border-[#19203c] flex flex-col p-2 px-4 rounded-[6px] gap-2"
+      className="w-full h-full max-h-40 bg-[linear-gradient(#131a33d4,#0c1227d4,#0c132cd4,#0e152ed4)] border-2 border-[#19203c] flex flex-col p-2 px-4 rounded-[6px] gap-2 overflow-hidden"
       variants={itemVariants}
       initial="hidden"
       animate="show"

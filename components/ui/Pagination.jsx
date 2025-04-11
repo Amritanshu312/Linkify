@@ -7,7 +7,7 @@ const Pagination = ({
 }) => {
   return totalPages === 1 ? null : (
     <div className="h-full w-full flex items-center justify-between ">
-      <div className="w-[90px] text-[15px] text-[#ffffffb4]">Page {currentPage} of {totalPages}</div>
+      <div className="w-[84px] text-[15px] text-[#ffffffb4]">Page {currentPage} of {totalPages}</div>
 
       <div className="w-full flex justify-center">
         <ReactPaginate

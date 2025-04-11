@@ -6,20 +6,12 @@ import LinksItems from "@/pages/home/no-links/LinksItems";
 import LinkCard from "./LinkCard";
 import { Fragment } from "react";
 import Pagination from "@/components/ui/Pagination";
-import { motion } from "framer-motion";
+import LoadingLink from "./LoadingLink";
 
-const containerVariants = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.08,
-    },
-  },
-};
 
 const Home = () => {
   const { session, status } = useAuth()
-  const { links, setPage, page } = useLink()
+  const { links, setPage, page, linkLoading } = useLink()
 
 
   return ((session && status === "authenticated") && links.data.length === 0) ?
@@ -30,15 +22,13 @@ const Home = () => {
     </div> :
 
     <div className="min-[586px]:px-12 min-[586px]:py-6 flex flex-col gap-4">
-
-      {links.data.map(item => <Fragment key={item._id}>
+      {linkLoading ? <LoadingLink totalLen={links.data.length || 8} /> : links.data.map(item => <Fragment key={item._id}>
         <LinkCard data={item} />
       </Fragment>)}
 
       <div className="mt-4">
         <Pagination setPage={setPage} currentPage={page} totalPages={links?.totalPages} />
       </div>
-
     </div>
 
 }

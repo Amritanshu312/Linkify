@@ -1,4 +1,5 @@
 "use client"
+import PagesInfoHeader from "@/components/layout/PagesInfoHeader";
 import Loader from "@/components/Loader";
 import Sidebar from "@/partials/sidebar/Sidebar";
 import { useSession } from "next-auth/react";
@@ -19,8 +20,10 @@ export default function MainLayout({ children }) {
   return (status === "loading" || status === "unauthenticated") ? <Loader /> : <>
     <Sidebar />
 
-    <div className="ml-[23rem] max-[1400px]:ml-20">
+    <div className="min-h-screen flex flex-col ml-[23rem] max-[1400px]:ml-20">
+      <PagesInfoHeader />
       {children}
     </div>
+
   </>;
 }

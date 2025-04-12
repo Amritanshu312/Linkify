@@ -21,7 +21,7 @@ const Home = () => {
       <CreateNewLinks />
     </div> :
 
-    <div className="min-[586px]:px-12 min-[586px]:py-6 flex flex-col gap-4">
+    <div className="min-[680px]:px-12 min-[680px]:py-6 flex flex-col gap-4">
       {linkLoading ? <LoadingLink totalLen={links.data.length || 8} /> : links.data.map(item => <Fragment key={item._id}>
         <LinkCard data={item} />
       </Fragment>)}

@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { connectDB } from "@/lib/mongodb";
 import User from "@/models/User";
+import Link from "@/models/Link";
 
 export const GET = async () => {
   try {
@@ -23,7 +24,13 @@ export const GET = async () => {
       });
     }
 
-    return new Response(JSON.stringify(user), {
+    const totalClicksAgg = await Link.aggregate([
+      { $match: { creator: user._id } },
+      { $group: { _id: null, total: { $sum: "$clicks" } } }
+    ]);
+    const totalClicks = totalClicksAgg[0]?.total || 0;
+
+    return new Response(JSON.stringify({ ...user, totalClicks }), {
       status: 200,
       headers: {
         "Content-Type": "application/json",

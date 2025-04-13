@@ -49,12 +49,6 @@ export const GET = async (req) => {
     const totalPages = Math.ceil(totalLinks / perPage);
     const hasNextPage = page < totalPages;
 
-    // Fetch total clicks across all links (not paginated)
-    const totalClicksAgg = await Link.aggregate([
-      { $match: { creator: user._id } },
-      { $group: { _id: null, total: { $sum: "$clicks" } } }
-    ]);
-    const totalClicks = totalClicksAgg[0]?.total || 0;
 
     const links = await Link.find({ creator: user._id })
       .select("short_url url expiration neverExpires clicks createdAt updatedAt")
@@ -80,7 +74,6 @@ export const GET = async (req) => {
         perPage,
         totalLinks,
         totalPages,
-        totalClicks,
         hasNextPage,
       }),
       { status: 200, headers: secureHeaders }

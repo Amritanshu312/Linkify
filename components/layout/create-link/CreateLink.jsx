@@ -49,6 +49,10 @@ const CreateLink = () => {
       return toast.error("Link Creation Exceeded", { position: "bottom-left" })
     }
 
+    if (userInfo?.maxClicks > 0 && userInfo?.totalClicks >= userInfo?.maxClicks) {
+      return toast.error("Clicks Exceeded", { position: "bottom-left" })
+    }
+
     toast.promise(
       (async () => {
         const response = await fetch("/api/user/links/create", {

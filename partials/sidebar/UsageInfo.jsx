@@ -1,4 +1,5 @@
 import { cn } from "@/lib/cn";
+import { formatNumber } from "@/utils/Number";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 
 
@@ -34,7 +35,7 @@ const UsageInfo = ({ data, user }) => {
         <div className="flex flex-col gap-2">
           <div className="flex justify-between items-center">
             <div>Clicks</div>
-            <div><span className="text-[#e9e9e9eb]">20k</span> of 100k</div>
+            <div><span className="text-[#e9e9e9eb]">{formatNumber(user?.totalClicks || 0)}</span> of {formatNumber(user?.maxClicks || 0)}</div>
           </div>
           <div className="h-10 w-full rounded-full bg-[#03091d] border border-[#232851] px-4 flex items-center">
             <div className="h-[5px] w-full flex gap-2">

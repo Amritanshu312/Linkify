@@ -62,13 +62,31 @@ export const POST = async (req) => {
 
     await connectDB();
 
-    const user = await User.findOne({ email: session.user.email }).select("_id");
+
+    const user = await User.findOne({ email: session.user.email })
+      .select("_id linksAllowed")
+      .lean();
+
     if (!user) {
       return new Response(JSON.stringify({
         success: false,
         message: "User not found"
       }), {
         status: 404,
+        headers: secureHeaders,
+      });
+    }
+
+    const totalLinks = await Link.countDocuments({ creator: user._id });
+
+    console.log(user, user?.linksAllowed);
+
+    if (user?.linksAllowed > 0 && totalLinks >= user?.linksAllowed) {
+      return new Response(JSON.stringify({
+        success: false,
+        message: "Link Creation Exceeded"
+      }), {
+        status: 409,
         headers: secureHeaders,
       });
     }

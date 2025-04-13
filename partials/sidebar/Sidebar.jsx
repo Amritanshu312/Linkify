@@ -14,11 +14,20 @@ import { useWindowSize } from "@/hooks/useWindowSize";
 import HamburgerButton from "./components/Hamburger";
 import { cn } from "@/lib/cn";
 import { motion } from "framer-motion"
+import { usePathname } from "next/navigation";
+import { useLink } from "@/context/linkProvider";
+import { useAuth } from "@/context/authProvider";
 
 
 const Sidebar = () => {
-  const [isToggled, setIsToggled] = useState(false)
   const { width } = useWindowSize()
+  const pathname = usePathname()
+
+  const { links } = useLink()
+  const { userInfo } = useAuth()
+
+  const [isToggled, setIsToggled] = useState(false)
+
 
   const containerVariants = {
     hidden: { opacity: 0.5 },
@@ -75,10 +84,10 @@ const Sidebar = () => {
           variants={containerVariants}
         >
           <motion.div variants={itemVariants}>
-            <LinkItem title={(!isToggled && width < 1400) ? "" : "Links"} logo={<PiLinkSimpleBold size={18} />} href="/" active />
+            <LinkItem title={(!isToggled && width < 1400) ? "" : "Links"} logo={<PiLinkSimpleBold size={18} />} href="/" active={pathname === "/"} />
           </motion.div>
           <motion.div variants={itemVariants}>
-            <LinkItem title={(!isToggled && width < 1400) ? "" : "Analytics"} logo={<TbBrandGoogleAnalytics size={18} />} href="/analytics" />
+            <LinkItem title={(!isToggled && width < 1400) ? "" : "Analytics"} logo={<TbBrandGoogleAnalytics size={18} />} href="/analytics" active={pathname === "/analytics"} />
           </motion.div>
           <motion.div variants={itemVariants}>
             <LinkItem title={(!isToggled && width < 1400) ? "" : "Events"} logo={<TbTimelineEvent size={18} />} href="/events" />
@@ -101,7 +110,7 @@ const Sidebar = () => {
 
           {(isToggled || width > 1400) && (
             <motion.div variants={itemVariants}>
-              <UsageInfo />
+              <UsageInfo data={links} user={userInfo} />
             </motion.div>
           )}
           <motion.div variants={itemVariants}>

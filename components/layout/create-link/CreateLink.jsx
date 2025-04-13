@@ -13,9 +13,11 @@ import { encrypt } from "@/lib/crypto";
 import { convertToISOString } from "@/utils/Date_Time";
 import { generateUuidBasedId, isValidUuidBasedId, PREFIX } from "@/utils/ID_generator";
 import { motion, AnimatePresence } from "framer-motion"
+import { useAuth } from "@/context/authProvider";
 
 const CreateLink = () => {
-  const { isCreateLinkPopup, setIsCreateLinkPopup } = useLink()
+  const { isCreateLinkPopup, setIsCreateLinkPopup, links } = useLink()
+  const { userInfo } = useAuth()
 
   const [originalUrl, setOriginalUrl] = useState("")
   const [shortenKey, setShortenKey] = useState("")
@@ -30,6 +32,8 @@ const CreateLink = () => {
   }, [isCreateLinkPopup, originalUrl])
 
   const handleSubmit = async () => {
+    toast.info("Creating your link now...", { position: "bottom-left" })
+
     const isValidUrl = isValidURL(originalUrl)
     const isValidCode = isValidUuidBasedId(`${PREFIX}${shortenKey}`)
 
@@ -41,7 +45,11 @@ const CreateLink = () => {
       return toast.error("Not a valid short key", { position: "bottom-left" })
     }
 
-    await toast.promise(
+    if (userInfo?.linksAllowed > 0 && links?.totalLinks >= userInfo?.linksAllowed) {
+      return toast.error("Link Creation Exceeded", { position: "bottom-left" })
+    }
+
+    toast.promise(
       (async () => {
         const response = await fetch("/api/user/links/create", {
           method: "POST",
@@ -68,13 +76,11 @@ const CreateLink = () => {
       })(),
       {
         loading: "Inserting link...",
+        position: "bottom-left",
         success: (message) => message,
         error: (err) => err.message || "Unexpected error occurred",
       }
     )
-
-
-
   }
   const popupVariants = {
     hidden: {

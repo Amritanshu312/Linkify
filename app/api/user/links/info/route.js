@@ -20,6 +20,8 @@ export const POST = async (request) => {
 	try {
 		const body = await request.json();
 		const { searchParams } = new URL(request.url);
+		const referer = body.referer || null;
+
 
 		const rawShortUrl = searchParams.get('_url_');
 
@@ -101,12 +103,15 @@ export const POST = async (request) => {
 			);
 		}
 
-		// Increment clicks (non-blocking)
-		Link.updateOne({ short_url: shorter_url }, { $inc: { clicks: 1 } }).catch(
-			() => {
-				console.warn('Failed to increment clicks, but continuing.');
-			}
-		);
+		const incData = { clicks: 1 };
+		if (referer) incData.organicShare = 1
+
+		Link.updateOne(
+			{ short_url: shorter_url },
+			{ $inc: incData }
+		).catch((err) => {
+			console.warn('Failed to increment clicks, but continuing.', err);
+		});
 
 		return new Response(
 			JSON.stringify({

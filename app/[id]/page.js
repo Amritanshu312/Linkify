@@ -20,13 +20,16 @@ const RedirectOriginalUrl = ({ params }) => {
 		setError(null);
 		setAttemptedAt(new Date().toLocaleString());
 
+		const referer = document.referrer || null;
+
+
 		try {
 			const response = await fetch(`/api/user/links/info?_url_=${id}`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({ show: ['url'] }),
+				body: JSON.stringify({ show: ['url'], referer }),
 			});
 
 			const data = await response.json();

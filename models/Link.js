@@ -43,6 +43,10 @@ const LinkSchema = new Schema(
 			type: Number,
 			default: 0,
 		},
+		organicShare: {
+			type: Number,
+			default: 0,
+		},
 		createdAt: {
 			type: Date,
 			default: Date.now,

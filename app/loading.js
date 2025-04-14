@@ -1,7 +1,7 @@
-const { default: Loader } = require("@/components/Loader")
+const { default: Loader } = require('@/components/Loader');
 
 const loading = () => {
-  return <Loader />
-}
+	return <Loader />;
+};
 
-export default loading
+export default loading;

@@ -1,12 +1,12 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 body {
-  background: #03091d;
-  color: #ededed;
-  font-family: "Poppins", Arial, Helvetica, sans-serif;
+	background: #03091d;
+	color: #ededed;
+	font-family: 'Poppins', Arial, Helvetica, sans-serif;
 }
 
-[data-sonner-toaster][data-sonner-theme="dark"] {
-  --normal-bg: #212847e3 !important;
-  --normal-border: #ffffff38 !important;
+[data-sonner-toaster][data-sonner-theme='dark'] {
+	--normal-bg: #212847e3 !important;
+	--normal-border: #ffffff38 !important;
 }

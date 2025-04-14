@@ -1,5 +1,5 @@
-import LoginForm from "@/pages/auth/login/LoginForm"
-import SignInWithGoogle from "@/pages/auth/SignInWithGoogle"
+import LoginForm from "@/contents/auth/login/LoginForm"
+import SignInWithGoogle from "@/contents/auth/SignInWithGoogle"
 import Image from "next/image"
 import Link from "next/link"
 

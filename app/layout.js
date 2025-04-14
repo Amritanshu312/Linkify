@@ -16,12 +16,11 @@ export default function RootLayout({ children }) {
         className={`${inter.variable} antialiased`}
       >
         <Provider>
-
           {children}
-
-          <div className="bg-[#281b41] w-80 rotate-180 h-96 fixed top-0 left-14 -z-10 rounded-4xl blur-[100px]"></div>
-          <div className="bg-[#281b41] w-96 rotate-180 h-96 fixed top-0 right-14 -z-10 blur-[180px]"></div>
         </Provider>
+
+        <div className="bg-[#281b41] w-80 rotate-180 h-96 fixed top-0 left-14 -z-10 rounded-4xl blur-[100px]"></div>
+        <div className="bg-[#281b41] w-96 rotate-180 h-96 fixed top-0 right-14 -z-10 blur-[180px]"></div>
       </body>
     </html>
   );

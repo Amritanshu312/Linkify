@@ -90,4 +90,11 @@ export function LinkProvider({ children }) {
   );
 }
 
-export const useLink = () => useContext(LinkContext);
+export const useLink = () => {
+  const context = useContext(LinkContext);
+  if (!context) {
+    throw new Error("useContext must be used within a LinkProvider");
+  }
+  return context;
+
+};

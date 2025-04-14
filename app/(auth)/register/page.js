@@ -1,5 +1,5 @@
-import RegisterForm from "@/pages/auth/register/RegisterForm";
-import SignInWithGoogle from "@/pages/auth/SignInWithGoogle";
+import RegisterForm from "@/contents/auth/register/RegisterForm";
+import SignInWithGoogle from "@/contents/auth/SignInWithGoogle";
 import Image from "next/image"
 import Link from "next/link";
 

@@ -12,46 +12,49 @@ const RedirectOriginalUrl = ({ params }) => {
   const [attemptedAt, setAttemptedAt] = useState(null);
   const [status, setStatus] = useState("Initializing...");
 
-  const fetchURL = async () => {
-    if (!id) return;
 
-    setLoading(true);
-    setStatus("Fetching redirect info...");
-    setError(null);
-    setAttemptedAt(new Date().toLocaleString());
-
-    try {
-      const response = await fetch(`/api/user/links/info?_url_=${id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ show: ["url"] }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data?.message || "Server returned an error.");
-      }
-
-      if (data?.success && data?.data?.url) {
-        setStatus("Redirecting...");
-        router.push(data.data.url);
-      } else {
-        throw new Error(data?.message || "URL not found.");
-      }
-    } catch (err) {
-      setStatus("Failed to redirect.");
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   useEffect(() => {
+
+    const fetchURL = async () => {
+      if (!id) return;
+
+      setLoading(true);
+      setStatus("Fetching redirect info...");
+      setError(null);
+      setAttemptedAt(new Date().toLocaleString());
+
+      try {
+        const response = await fetch(`/api/user/links/info?_url_=${id}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ show: ["url"] }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data?.message || "Server returned an error.");
+        }
+
+        if (data?.success && data?.data?.url) {
+          setStatus("Redirecting...");
+          router.push(data.data.url);
+        } else {
+          throw new Error(data?.message || "URL not found.");
+        }
+      } catch (err) {
+        setStatus("Failed to redirect.");
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchURL();
-  }, [id]);
+  }, [id, router]);
 
   return (
     <div className="h-screen flex flex-col items-center justify-center text-[#a7b4b6] px-4 text-center">

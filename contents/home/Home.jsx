@@ -1,8 +1,8 @@
 "use client"
 import { useAuth } from "@/context/authProvider";
 import { useLink } from "@/context/linkProvider";
-import CreateNewLinks from "@/pages/home/no-links/CreateNewLinks";
-import LinksItems from "@/pages/home/no-links/LinksItems";
+import CreateNewLinks from "@/contents/home/no-links/CreateNewLinks";
+import LinksItems from "@/contents/home/no-links/LinksItems";
 import LinkCard from "./LinkCard";
 import { Fragment } from "react";
 import Pagination from "@/components/ui/Pagination";

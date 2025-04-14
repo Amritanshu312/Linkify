@@ -10,7 +10,7 @@ export function AuthProvider({ children }) {
   const { data: session, status } = useNextAuthSession();
   const [userInfo, setUserInfo] = useState({})
   const [fetchLoading, setFetchLoading] = useState(true)
-  console.log(userInfo)
+
   useEffect(() => {
     if (status !== "authenticated") return;
 

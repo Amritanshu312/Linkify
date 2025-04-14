@@ -79,7 +79,6 @@ export const POST = async (req) => {
 
     const totalLinks = await Link.countDocuments({ creator: user._id });
 
-    console.log(user, user?.linksAllowed);
 
     if (user?.linksAllowed > 0 && totalLinks >= user?.linksAllowed) {
       return new Response(JSON.stringify({

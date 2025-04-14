@@ -1,20 +1,22 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Provider } from "./providers";
+import HeadElements from "./HeadElements";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Linkify - A Modern Way To Shorten Your URL",
   description: "name is self explainatory",
+
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.variable} antialiased`}
-      >
+      <HeadElements />
+
+      <body className={`${inter.variable} antialiased`}>
         <Provider>
           {children}
         </Provider>

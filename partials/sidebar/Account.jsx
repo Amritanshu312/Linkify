@@ -1,5 +1,4 @@
 import { useAuth } from "@/context/authProvider"
-import { useSession } from "next-auth/react"
 import { BsThreeDots } from "react-icons/bs"
 
 const Account = ({ onlyProfile }) => {

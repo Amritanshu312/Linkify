@@ -30,9 +30,14 @@ export const GET = async () => {
 			{ $match: { creator: user._id } },
 			{ $group: { _id: null, total: { $sum: '$clicks' } } },
 		]);
+		const _totalOrganicShare = await Link.aggregate([
+			{ $match: { creator: user._id } },
+			{ $group: { _id: null, total: { $sum: '$organicShare' } } },
+		]);
 		const totalClicks = totalClicksAgg[0]?.total || 0;
+		const totalOrganicShare = _totalOrganicShare[0]?.total || 0;
 
-		return new Response(JSON.stringify({ ...user, totalClicks }), {
+		return new Response(JSON.stringify({ ...user, totalClicks, totalOrganicShare }), {
 			status: 200,
 			headers: {
 				'Content-Type': 'application/json',

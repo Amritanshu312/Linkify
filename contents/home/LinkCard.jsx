@@ -95,7 +95,7 @@ const LinkCard = ({ data }) => {
 						<div>
 							<FaPersonRunning size={18} />
 						</div>
-						<div>258 Visitors</div>
+						<div>{data?.organicShare || 0} Visitors</div>
 					</div>
 
 					<div className="flex gap-2 items-center border-2 border-[#161d3b] p-1 px-2 rounded-md">

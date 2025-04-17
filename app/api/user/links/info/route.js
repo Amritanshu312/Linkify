@@ -20,8 +20,9 @@ export const POST = async (request) => {
 	try {
 		const body = await request.json();
 		const { searchParams } = new URL(request.url);
-		const referer = body.referer || null;
+		let referer = body.referer || null;
 
+		if (referer?.includes(process.env.NEXT_PUBLIC_WEBSITE_URL)) referer = null
 
 		const rawShortUrl = searchParams.get('_url_');
 
@@ -102,6 +103,8 @@ export const POST = async (request) => {
 				}
 			);
 		}
+
+		console.log({ referer })
 
 		const incData = { clicks: 1 };
 		if (referer) incData.organicShare = 1

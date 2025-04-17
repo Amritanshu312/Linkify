@@ -51,7 +51,7 @@ export const GET = async (req) => {
 
 		const links = await Link.find({ creator: user._id })
 			.select(
-				'short_url url expiration neverExpires clicks createdAt updatedAt'
+				'short_url url expiration neverExpires clicks createdAt updatedAt organicShare'
 			)
 			.sort(
 				...[

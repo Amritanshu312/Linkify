@@ -13,9 +13,9 @@ const Stats = () => {
   const total_clicks = userInfo?.totalClicks || 0
   const total_links = links?.totalLinks || 0
   const total_organic_share = userInfo?.totalOrganicShare || 0
-  console.log(userInfo)
+
   return (
-    <div className="flex gap-4 items-center">
+    <div className="flex gap-4 max-[1366px]:grid max-[1366px]:grid-cols-2 max-[1366px]:gap-[5_4] max-[590px]:grid-cols-1 items-center">
       <StatsCard icon={<LuChartNoAxesColumn size={28} />} title={"Total Clicks"} totalValue={total_clicks} />
       <StatsCard icon={<FiLink size={24} />} title={"Links Created"} totalValue={total_links} />
       <StatsCard icon={<MdOutlineTouchApp size={28} />} title={"Organic Share Clicks"} totalValue={total_organic_share} />

@@ -20,7 +20,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/context/authProvider';
 
 const CreateLink = () => {
-	const { isCreateLinkPopup, setIsCreateLinkPopup, links } = useLink();
+	const { isCreateLinkPopup, setIsCreateLinkPopup, links, setLinksState } = useLink();
 	const { userInfo } = useAuth();
 
 	const [originalUrl, setOriginalUrl] = useState('');
@@ -77,12 +77,33 @@ const CreateLink = () => {
 				});
 
 				const data = await response.json();
+				const now = new Date().toISOString();
 
 				if (response.ok && data.success) {
+					setIsCreateLinkPopup(false);
+
+					setLinksState(prev => ({
+						...prev,
+						data: [
+							...(prev?.data || []),
+							{
+								_id: Math.random().toString(36).substring(2, 12),
+								url: data?.data?.original_url,
+								short_url: data?.data?.short_url,
+								expiration: null,
+								neverExpires: true,
+								clicks: 0,
+								organicShare: 0,
+								createdAt: now,
+								updatedAt: now
+							}
+						]
+					}));
+
+
 					setOriginalUrl('');
 					setExpiration('Never');
 					setShortenKey('');
-					setIsCreateLinkPopup(false);
 
 					return data.message || 'Link created successfully';
 				} else {

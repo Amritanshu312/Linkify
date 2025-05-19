@@ -11,7 +11,7 @@ import LoadingLink from './LoadingLink';
 const Home = () => {
 	const { session, status } = useAuth();
 	const { links, setPage, page, linkLoading } = useLink();
-
+	console.log(links)
 	return session && status === 'authenticated' && links.data.length === 0 ? (
 		<div className="min-[586px]:px-12 min-[586px]:py-6 flex flex-col gap-8 items-center">
 			<LinksItems />

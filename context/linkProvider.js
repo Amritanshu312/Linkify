@@ -12,11 +12,19 @@ export function LinkProvider({ children }) {
 	const [isCreateLinkPopup, setIsCreateLinkPopup] = useState(false);
 	const [linkLoading, setLinkLoading] = useState(true);
 
-	const [links, setLinksState] = useState(() =>
-		typeof window === 'undefined'
-			? { data: [] }
-			: JSON.parse(localStorage.getItem('links') || 'null') || { data: [] }
-	);
+	const [links, setLinksState] = useState(() => {
+		if (typeof window === 'undefined') {
+			return { data: [] };
+		} try {
+			const raw = localStorage.getItem('links');
+			if (!raw || raw === 'undefined') return { data: [] }
+			return JSON.parse(raw) || { data: [] };
+		} catch (e) {
+			console.warn('Failed to parse localStorage "links":', e);
+			return { data: [] };
+		}
+	});
+
 
 	const [page, setPage] = useState(links?.currentPage || 1);
 

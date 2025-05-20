@@ -1,7 +1,6 @@
 import { BsArrowReturnRight } from 'react-icons/bs';
 import { MdOutlineContentCopy } from 'react-icons/md';
 import { FiExternalLink } from 'react-icons/fi';
-import { BsThreeDots } from 'react-icons/bs';
 import { FaPersonRunning } from 'react-icons/fa6';
 import { PiCursorClick } from 'react-icons/pi';
 import Link from 'next/link';
@@ -9,6 +8,8 @@ import { formatDate } from '@/utils/Date_Time';
 import { copyToClipboard } from '@/utils/Clipboard';
 import { toast } from 'sonner';
 import { motion } from 'framer-motion';
+import OptionsDropdown from './OptionsDropdown';
+import Alert from '@/components/ui/Alert';
 
 const itemVariants = {
 	hidden: { opacity: 0, y: 20, scale: 0.98 },
@@ -84,9 +85,10 @@ const LinkCard = ({ data }) => {
 					</div>
 				</div>
 
-				<div className="max-[585px]:hidden">
-					<BsThreeDots />
+				<div className='max-[585px]:hidden h-[40px] flex'>
+					<OptionsDropdown _id={data?._id} />
 				</div>
+
 			</div>
 
 			<div className="flex w-full items-center justify-between flex-wrap gap-2 max-[520px]:flex-col max-[520px]:items-start max-[520px]:justify-between">
@@ -103,6 +105,10 @@ const LinkCard = ({ data }) => {
 							<PiCursorClick size={18} />
 						</div>
 						<div>{data?.clicks} Clicks</div>
+					</div>
+
+					<div className='min-[585px]:hidden'>
+						<OptionsDropdown isMobile />
 					</div>
 				</div>
 

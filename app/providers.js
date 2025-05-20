@@ -7,6 +7,7 @@ import { AuthProvider } from '@/context/authProvider';
 import { Suspense } from 'react';
 import CreateLink from '@/components/layout/create-link/CreateLink';
 import { LinkProvider } from '@/context/linkProvider';
+import { ConfirmProvider } from '@/providers/ConfirmProvider';
 
 export const Provider = ({ children }) => {
 	return (
@@ -20,9 +21,15 @@ export const Provider = ({ children }) => {
 
 					{/* link provider */}
 					<LinkProvider>
-						{children}
+
+						<ConfirmProvider>
+							{children}
+						</ConfirmProvider>
+
+
 						<CreateLink />
 					</LinkProvider>
+
 				</AuthProvider>
 			</SessionProvider>
 		</>

@@ -3,7 +3,7 @@ import { useAuth } from '@/context/authProvider';
 import { useLink } from '@/context/linkProvider';
 import CreateNewLinks from '@/contents/home/no-links/CreateNewLinks';
 import LinksItems from '@/contents/home/no-links/LinksItems';
-import LinkCard from './LinkCard';
+import LinkCard from './card/LinkCard';
 import { Fragment } from 'react';
 import Pagination from '@/components/ui/Pagination';
 import LoadingLink from './LoadingLink';

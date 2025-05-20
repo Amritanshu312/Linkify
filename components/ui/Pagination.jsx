@@ -7,7 +7,7 @@ const Pagination = ({ setPage, currentPage, totalPages }) => {
 				Page {currentPage} of {totalPages}
 			</div>
 
-			<div className="w-full flex justify-center">
+			<div className="w-full flex justify-center items-center">
 				<ReactPaginate
 					breakLabel="..."
 					nextLabel="next >"
@@ -15,8 +15,8 @@ const Pagination = ({ setPage, currentPage, totalPages }) => {
 					onPageChange={({ selected }) => setPage(selected + 1)}
 					pageRangeDisplayed={5}
 					pageCount={totalPages}
-					className="flex justify-center items-center w-max bg-[linear-gradient(#131a33d4,#0c1227d4,#0c132cd4,#0e152ed4)] border border-[#1d27535c] rounded-lg"
-					pageClassName=" w-12 h-full"
+					className="flex justify-center items-center w-max bg-[linear-gradient(#131a33d4,#0c1227d4,#0c132cd4,#0e152ed4)] border border-[#1d27535c] rounded-lg flex-wrap"
+					pageClassName=" w-12 h-[36px]"
 					pageLinkClassName="w-full h-full flex items-center justify-center cursor-pointer hover:bg-[linear-gradient(45deg,#201c42,#0c163f,#0f1938,#1e184b)] "
 					previousClassName="h-full flex items-center cursor-pointer flex gap-3 items-center hover:bg-[linear-gradient(45deg,#201c42,#0c163f,#0f1938,#1e184b)] "
 					nextClassName="h-full flex items-center cursor-pointer flex gap-3 items-center hover:bg-[linear-gradient(45deg,#201c42,#0c163f,#0f1938,#1e184b)]"

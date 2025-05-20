@@ -5,8 +5,8 @@ import Link from 'next/link';
 
 const Login = () => {
 	return (
-		<div className="w-full h-screen flex items-center justify-center">
-			<div className="max-w-[28rem] flex flex-col items-center gap-8">
+		<div className="w-full min-h-screen h-max py-4 flex items-center justify-center">
+			<div className="max-w-[28rem] max-[433px]:max-w-full max-[433px]:mx-2 flex flex-col items-center gap-8">
 				<div className="bg-[linear-gradient(45deg,#0e1530,#090e23,#0d142d)] border-2 border-[#1c2340] rounded-lg p-1 w-max">
 					<Image src={'/images/logo.svg'} width={36} height={36} alt="logo" />
 				</div>

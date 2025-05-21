@@ -1,7 +1,7 @@
 import { cn } from '@/lib/cn';
 import Link from 'next/link';
 
-const LinkItem = ({ title, logo, active, href }) => {
+const LinkItem = ({ title, onClick, logo, active, href }) => {
 	return (
 		<Link
 			href={href}
@@ -12,6 +12,12 @@ const LinkItem = ({ title, logo, active, href }) => {
 					'justify-center items-center': title === '',
 				}
 			)}
+			onClick={(e) => {
+				if (onClick) {
+					e.preventDefault();
+					onClick()
+				}
+			}}
 		>
 			<span>{logo}</span>
 			{title !== '' && <div>{title}</div>}

@@ -17,10 +17,12 @@ import { motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { useLink } from '@/context/linkProvider';
 import { useAuth } from '@/context/authProvider';
+import { useGlobalUtils } from '@/providers/GlobalProviders';
 
 const Sidebar = () => {
 	const { width } = useWindowSize();
 	const pathname = usePathname();
+	const { setIsSettingToggled } = useGlobalUtils()
 
 	const { links } = useLink();
 	const { userInfo } = useAuth();
@@ -46,6 +48,8 @@ const Sidebar = () => {
 		hidden: { opacity: 0, x: -20 },
 		visible: { opacity: 1, x: 0, transition: { duration: 0.3 } },
 	};
+
+	const toggleSetting = () => setIsSettingToggled(prev => !prev)
 
 	return (
 		<motion.div
@@ -122,6 +126,7 @@ const Sidebar = () => {
 						<LinkItem
 							title={!isToggled && width < 1400 ? '' : 'Settings'}
 							logo={<IoSettingsOutline size={18} />}
+							onClick={toggleSetting}
 							href="/settings"
 						/>
 					</motion.div>

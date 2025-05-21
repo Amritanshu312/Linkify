@@ -8,6 +8,7 @@ import { Suspense } from 'react';
 import CreateLink from '@/components/layout/create-link/CreateLink';
 import { LinkProvider } from '@/context/linkProvider';
 import { ConfirmProvider } from '@/providers/ConfirmProvider';
+import { GlobalUtilsProvider } from '@/providers/GlobalProviders';
 
 export const Provider = ({ children }) => {
 	return (
@@ -23,7 +24,9 @@ export const Provider = ({ children }) => {
 					<LinkProvider>
 
 						<ConfirmProvider>
-							{children}
+							<GlobalUtilsProvider>
+								{children}
+							</GlobalUtilsProvider>
 						</ConfirmProvider>
 
 
